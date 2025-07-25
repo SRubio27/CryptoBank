@@ -69,7 +69,7 @@ function newMaxBalance(uint256 newMaxBalance_) public onlyOwner
 ### ✅ Buenas prácticas implementadas
 
 - **Control de acceso**:  
-  El modificador `onlyOwner` (aunque incorrectamente implementado, ver nota abajo) restringe funciones administrativas.
+  El modificador `onlyOwner` restringe funciones administrativas.
 
 - **Límites de depósito**:  
   Cada usuario tiene un límite máximo definido para evitar grandes acumulaciones de fondos en una sola cuenta.
@@ -79,36 +79,7 @@ function newMaxBalance(uint256 newMaxBalance_) public onlyOwner
 
 - **Protección contra "overflows"**:  
   Uso de Solidity 0.8.x que incluye protecciones integradas contra desbordamientos numéricos.
-
----
-
-## ⚠️ Problemas y recomendaciones
-
-### ❗️ Modificador `onlyOwner` mal implementado
-```solidity
-require(msg.sender != owner, "Only owner can call this function");
-```
-- **Error lógico**: Esta línea permite a **cualquier usuario excepto al propietario** llamar la función.
-- **Solución correcta**:
-```solidity
-require(msg.sender == owner, "Only owner can call this function");
-```
-
-### 🚫 No hay control de pausado del contrato
-- Podrías añadir un mecanismo de `pausable` para emergencias (usando OpenZeppelin o manualmente).
-
-### ⚠️ Sin protección contra ataques de reentrancia
-- Aunque el uso de `call` es válido, se recomienda implementar el patrón _checks-effects-interactions_ o usar `ReentrancyGuard`.
-
-### 🔐 No hay fallback ni receive function
-- El contrato sólo acepta Ether mediante `deposit()`. Si un usuario envía Ether directamente, se perderá (reversión).
-- **Solución recomendada**:
-```solidity
-receive() external payable {
-    deposit();
-}
-```
-
+   
 ---
 
 ## 🧪 Ejemplo de uso (Remix)
