@@ -1,4 +1,4 @@
-```markdown
+
 # 💰 CryptBank – Smart Contract Ethereum
 
 Un contrato inteligente en Solidity para almacenar y retirar Ether de forma segura. Compatible con múltiples usuarios y desarrollado bajo las reglas de la licencia GPL-3.0.
